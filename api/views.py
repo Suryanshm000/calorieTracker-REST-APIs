@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.authtoken.models import Token
 from .models import CalorieEntry
-from .serializers import UserSerializer, UserSettingSerializer, CalorieEntrySerializer, CalorieEntryListSerializer
+from .serializers import UserSerializer, UserSettingSerializer, CalorieEntrySerializer, CalorieEntryListSerializer, SetUserManagerSerializer, UserManagerSerializer
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsUserManager, IsAdmin
@@ -116,3 +116,30 @@ class CalorieEntryRetrieveDestroyView(generics.RetrieveDestroyAPIView):
     def get_queryset(self):
         queryset = CalorieEntry.objects.filter(user=self.request.user)
         return queryset
+
+
+## admin can set usermanger
+class SetUserManager(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = SetUserManagerSerializer
+    permission_classes = [IsAdmin]
+
+
+## User manager CRUD
+
+class UserManagerListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserManagerSerializer
+    permission_classes = [IsUserManager]
+
+
+class UserManagerRetrieveDestroyView(generics.RetrieveDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserManagerSerializer
+    permission_classes = [IsUserManager]
+
+
+class UserManagerUpdateView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsUserManager]

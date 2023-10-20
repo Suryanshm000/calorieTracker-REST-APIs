@@ -33,3 +33,15 @@ class CalorieEntryListSerializer(serializers.ModelSerializer):
     class Meta:
         model = CalorieEntry
         fields = '__all__'
+
+
+class SetUserManagerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['is_staff']
+
+
+class UserManagerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
