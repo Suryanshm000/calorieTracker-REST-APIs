@@ -14,11 +14,21 @@ class UserSettingSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('user',)
 
+    def validate_expected_calories_per_day(self, value):
+        if value is not None and value < 0:
+            raise serializers.ValidationError("Calories cannot be negative.")
+        return value
+
 
 class CalorieEntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = CalorieEntry
         fields = ['text', 'calories']
+
+    def validate_calories(self, value):
+        if value is not None and value < 0:
+            raise serializers.ValidationError("Calories cannot be negative.")
+        return value
 
     def create(self, validated_data):
         # Parse date and time strings into date and time objects
