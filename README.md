@@ -44,7 +44,7 @@ curl --location --request POST 'http://127.0.0.1:8000/user/entry' \
 **Get entry list API**
 ```
 curl --location --request GET 'http://127.0.0.1:8000/user/view_entry' \
---header 'Authorization: Token d9a6b3d949448ed1b0bef79328eba00e2dcd30e9'
+--header 'Authorization: Token <YOUR ACCESS TOKEN>'
 ```
 
 **Get entry API**
